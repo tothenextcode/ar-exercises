@@ -6,11 +6,12 @@ class Employee < ActiveRecord::Base
   validates :hourly_rate, :inclusion => 40..200
   validates_associated :store
 
-  before_create :generate_password
+  after_create :generate_password
 
   private
 
   def generate_password
     self.password = SecureRandom.hex[0..7]
+    self.save
   end
 end
